@@ -119,15 +119,19 @@
   }
 
   function getSuffix(day) {
-    switch (day % 10) {
-      case 1:
-        return `${day}st`;
-      case 2:
-        return `${day}nd`;
-      case 3:
-        return `${day}rd`;
-      default:
-        return `${day}th`;
+    if (day > 10 && day < 14) {
+      return `${day}th`;
+    } else {
+      switch (day % 10) {
+        case 1:
+          return `${day}st`;
+        case 2:
+          return `${day}nd`;
+        case 3:
+          return `${day}rd`;
+        default:
+          return `${day}th`;
+      }
     }
   }
 
