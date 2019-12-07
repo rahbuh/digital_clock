@@ -32,11 +32,11 @@
 
   let isMilitary = true;
   let isRunning = true;
-  let dateFormat = 1;
+  let dateFormat = 0;
   let clockInterval;
 
   toggleDate.addEventListener("click", () => {
-    dateFormat < 4 ? (dateFormat += 1) : (dateFormat = 1);
+    dateFormat < 3 ? (dateFormat += 1) : (dateFormat = 0);
   });
 
   toggleTime.addEventListener("click", () => {
@@ -100,15 +100,11 @@
   function displayDate(dayOfWeek, month, day, year, dateFormat) {
     switch (dateFormat) {
       case 1:
-        return `${dayNames[dayOfWeek][0]}, ${monthNames[month][0]} ${day}, ${year}`;
-      case 2:
         return `${month + 1}/${day}/${year - 2000}`;
-      case 3:
+      case 2:
         return `${monthNames[month][0]} ${getSuffix(day)}`;
-      case 4:
-        return `${dayNames[dayOfWeek][1]}, ${monthNames[month][1]} ${getSuffix(
-          day
-        )}`;
+      case 3:
+        return `${dayNames[dayOfWeek][1]}, ${monthNames[month][1]} ${getSuffix(day)}`;
       default:
         return `${dayNames[dayOfWeek][0]}, ${monthNames[month][0]} ${day}, ${year}`;
     }
