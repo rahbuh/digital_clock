@@ -46,6 +46,7 @@
       : (toggleTime.innerText = "SHOW 24HR");
   });
 
+  // comment
   togglePower.addEventListener("click", () => {
     isRunning = !isRunning;
     if (isRunning) {
