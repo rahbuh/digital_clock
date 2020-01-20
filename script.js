@@ -32,12 +32,10 @@
 
   let isMilitary = true;
   let isRunning = true;
-  let dateFormat = 0;
+  let dateFormat = 1;
   let clockInterval;
 
-  toggleDate.addEventListener("click", () => {
-    dateFormat < 3 ? (dateFormat += 1) : (dateFormat = 0);
-  });
+  toggleDate.addEventListener("click", () => dateFormat++);
 
   toggleTime.addEventListener("click", () => {
     isMilitary = !isMilitary;
@@ -46,7 +44,6 @@
       : (toggleTime.innerText = "SHOW 24HR");
   });
 
-  // comment
   togglePower.addEventListener("click", () => {
     isRunning = !isRunning;
     if (isRunning) {
@@ -69,13 +66,7 @@
     const year = date.getFullYear();
 
     timeDisplay.innerHTML = displayTime(hrs, mins, secs);
-    dateDisplay.innerText = displayDate(
-      dayOfWeek,
-      month,
-      day,
-      year,
-      dateFormat
-    );
+    dateDisplay.innerText = displayDate(dayOfWeek, month, day, year);
   }
 
   function displayTime(hrs, mins, secs) {
@@ -98,17 +89,19 @@
     )}</span>:<span id="seconds">${format(secs)}</span>`;
   }
 
-  function displayDate(dayOfWeek, month, day, year, dateFormat) {
-    switch (dateFormat) {
-      case 1:
-        return `${month + 1}/${day}/${year - 2000}`;
-      case 2:
-        return `${monthNames[month][0]} ${getSuffix(day)}`;
-      case 3:
-        return `${dayNames[dayOfWeek][1]}, ${monthNames[month][1]} ${getSuffix(day)}`;
-      default:
-        return `${dayNames[dayOfWeek][0]}, ${monthNames[month][0]} ${day}, ${year}`;
+  function displayDate(dayOfWeek, month, day, year) {
+    const format = {
+      1: `${dayNames[dayOfWeek][0]}, ${monthNames[month][0]} ${day}, ${year}`,
+      2: `${month + 1}/${day}/${year - 2000}`,
+      3: `${monthNames[month][0]} ${getSuffix(day)}`,
+      4: `${dayNames[dayOfWeek][1]}, ${monthNames[month][1]} ${getSuffix(day)}`
+    };
+
+    if (dateFormat > Object.keys(format).length) {
+      dateFormat = 1;
     }
+
+    return format[dateFormat];
   }
 
   function format(time) {
